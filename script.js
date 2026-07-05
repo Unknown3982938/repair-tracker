@@ -1,16 +1,13 @@
 const SHEET_ID = "1ESU-NGsVNWwJ7Ui3REO5FFROdxQ8KkIDQhFYuQXvc-g";
 const SHEET_GID = "0";
 
-const URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
+const URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:json&gid=" + SHEET_GID;
 
 let rows = [];
 
 function clean(v) {
     if (v === null || v === undefined) return "-";
-
-    // Handles Google Sheets object values
     if (typeof v === "object" && v.v !== undefined) return v.v;
-
     return v;
 }
 
