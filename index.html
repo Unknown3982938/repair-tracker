@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UP Repair Tracker</title>
+    <title>Repair Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1>UP Repair Tracker</h1>
-<p>Website setup successful.</p>
+
+<input id="jobInput" placeholder="Enter Job ID (e.g. UPID-2026-001)">
+<button onclick="searchJob()">Search</button>
+
+<div id="output"></div>
 
 <script src="script.js"></script>
 </body>
