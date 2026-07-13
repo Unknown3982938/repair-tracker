@@ -7,7 +7,21 @@ let rows = [];
 
 function clean(v) {
     if (v === null || v === undefined) return "-";
-    if (typeof v === "object" && v.v !== undefined) return v.v;
+
+    // Google Sheets Date object
+    if (v instanceof Date) {
+        return v.toLocaleDateString("en-PH", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+    }
+
+    // Google Sheets object
+    if (typeof v === "object" && v.v !== undefined) {
+        return clean(v.v);
+    }
+
     return v;
 }
 
