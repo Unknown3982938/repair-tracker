@@ -5,24 +5,20 @@ const URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx
 
 let rows = [];
 
-function clean(v) {
-    if (v === null || v === undefined) return "-";
+function clean(cell) {
+    if (!cell) return "-";
 
-    // Google Sheets Date object
-    if (v instanceof Date) {
-        return v.toLocaleDateString("en-PH", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
+    // Use the formatted value if available
+    if (cell.f !== undefined) {
+        return cell.f;
     }
 
-    // Google Sheets object
-    if (typeof v === "object" && v.v !== undefined) {
-        return clean(v.v);
+    // Otherwise use the raw value
+    if (cell.v !== undefined) {
+        return cell.v;
     }
 
-    return v;
+    return cell;
 }
 
 async function loadData() {
