@@ -52,14 +52,14 @@ function normalizeStatus(status) {
     return status;
 }
 
-function normalizeStatus(Pstats) {
+function normalizeStatus(pStats) {
     const s = String(Pstats).toLowerCase();
 
     if (s.includes("Paid")) return "Paid";
     if (s.includes("Unpaid")) return "Unpaid";
     if (s.includes("Partial")) return "Partially Paid"
 
-    return Pstats;
+    return pStats;
 }
 
 function searchJob() {
@@ -89,7 +89,7 @@ function searchJob() {
         issue: clean(c[4]),
         resolution: clean(c[5]),
         dateReceived: clean(c[6]),
-        Pstats: clean(c[14]),
+        pStats: clean(c[14]),
         status: normalizeStatus(clean(c[15])),
         asOf: clean(c[16]),
         retrieved: clean(c[17])
@@ -107,7 +107,7 @@ function searchJob() {
 
             <p><strong>STATUS:</strong><br>${data.status}</p>
 
-            <p><strong>PAYMENT STATUS:</strong><br>${data.Pstats}</p>
+            <p><strong>PAYMENT STATUS:</strong><br>${data.pStats}</p>
 
             <p><strong>DATE RECEIVED:</strong><br>${data.dateReceived}</p>
 
