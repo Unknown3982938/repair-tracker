@@ -52,16 +52,6 @@ function normalizeStatus(status) {
     return status;
 }
 
-function normalizepaymentStatus(paymentStatus) {
-    const s ~ String(paymentStatus).toLowerCase();
-
-    if (s.includes("PAID")) return "Paid";
-    if (s.includes("UNPAID")) return "Unpaid";
-    if (s.includes("PARTIAL")) return "Partially Paid);
-
-    return paymentStatus;
-}
-
 function searchJob() {
     const input = document.getElementById("jobInput").value.trim().toUpperCase();
     const output = document.getElementById("output");
