@@ -41,15 +41,25 @@ async function loadData() {
 function normalizeStatus(status) {
     const s = String(status).toLowerCase();
 
-    if (s.includes("fixed")) return "🟢 Fixed";
-    if (s.includes("in progress")) return "🟡 In Progress";
-    if (s.includes("pending")) return "🟠 Pending";
-    if (s.includes("returned")) return "🔵 Returned";
-    if (s.includes("failed")) return "🔴 Failed";
-    if (s.includes("incapable")) return "⚫ Incapable";
-    if (s.includes("cancel")) return "⚪ Cancelled";
+    if (s.includes("fixed")) return "🟢 Fixed (Can be now Retrieved)";
+    if (s.includes("in progress")) return "🟡 In Progress (Check status again later)";
+    if (s.includes("pending")) return "🟠 Pending (Please check your inquiry for neccessary process)";
+    if (s.includes("returned")) return "🔵 Returned (Repair is not set)";
+    if (s.includes("failed")) return "🔴 Failed (Repair faied)";
+    if (s.includes("incapable")) return "⚫ Incapable (Repair is unable to be done due to tools/equipments & skill culprit)";
+    if (s.includes("cancel")) return "⚪ Cancelled (Repair is aborted)";
 
     return status;
+}
+
+function normalizeStatus(Pstats) {
+    const s = String(Pstats).toLowerCase();
+
+    if (s.includes("Paid")) return "Paid";
+    if (s.includes("Unpaid")) return "Unpaid";
+    if (s.includes("Partial")) return "Partially Paid"
+
+    return Pstats;
 }
 
 function searchJob() {
@@ -63,8 +73,8 @@ function searchJob() {
     if (!result) {
         output.innerHTML = `
             <div class="card">
-                <h2>❌ Job Not Found</h2>
-                <p>Please check your Job ID.</p>
+                <h2>❌ Job ID Not Found</h2>
+                <p>Please check your Job ID. Ask for operator for the ID</p>
             </div>
         `;
         return;
@@ -79,28 +89,31 @@ function searchJob() {
         issue: clean(c[4]),
         resolution: clean(c[5]),
         dateReceived: clean(c[6]),
-        status: normalizeStatus(clean(c[14])),
-        asOf: clean(c[15]),
-        retrieved: clean(c[16])
+        Pstats: clean(c[14]),
+        status: normalizeStatus(clean(c[15])),
+        asOf: clean(c[16]),
+        retrieved: clean(c[17])
     };
 
     output.innerHTML = `
         <div class="card">
             <h2>${data.jobId}</h2>
 
-            <p><strong>📱 Device:</strong><br>${data.unitType} - ${data.unitModel}</p>
+            <p><strong>DEVICE:</strong><br>${data.unitType} - ${data.unitModel}</p>
 
-            <p><strong>⚠️ Issue:</strong><br>${data.issue}</p>
+            <p><strong>ISSUE:</strong><br>${data.issue}</p>
 
-            <p><strong>🔧 Resolution:</strong><br>${data.resolution}</p>
+            <p><strong>RESOLUTION:</strong><br>${data.resolution}</p>
 
-            <p><strong>📊 Status:</strong><br>${data.status}</p>
+            <p><strong>STATUS:</strong><br>${data.status}</p>
 
-            <p><strong>📅 Date Received:</strong><br>${data.dateReceived}</p>
+            <p><strong>PAYMENT STATUS:</strong><br>${data.Pstats}</p>
 
-            <p><strong>🕒 Last Update:</strong><br>${data.asOf}</p>
+            <p><strong>DATE RECEIVED:</strong><br>${data.dateReceived}</p>
 
-            <p><strong>📦 Retrieved:</strong><br>${data.retrieved}</p>
+            <p><strong>LAST UPDATED:</strong><br>${data.asOf}</p>
+
+            <p><strong>RECEIVED:</strong><br>${data.retrieved}</p>
         </div>
     `;
 }
