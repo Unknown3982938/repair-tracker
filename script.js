@@ -53,7 +53,7 @@ function normalizeStatus(status) {
 }
 
 function normalizeStatus(pStats) {
-    const s = String(Pstats).toLowerCase();
+    const s = String(pStats).toLowerCase();
 
     if (s.includes("Paid")) return "Paid";
     if (s.includes("Unpaid")) return "Unpaid";
